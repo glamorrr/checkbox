@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+
+        <script src="https://cdn.tailwindcss.com"></script>
+    </head>
+    <body class="py-4 mx-auto max-w-sm flex flex-col items-center">
+        <div id="container" class="grid gap-4 grid-cols-3">
+            <div data-box="true" class="w-12 h-12 border-2 border-gray-900"></div>
+            <div data-box="true" class="w-12 h-12 border-2 border-gray-900"></div>
+            <div data-box="true" class="w-12 h-12 border-2 border-gray-900"></div>
+            <div data-box="true" class="w-12 h-12 border-2 border-gray-900"></div>
+            <div></div>
+            <div></div>
+            <div data-box="true" class="w-12 h-12 border-2 border-gray-900"></div>
+            <div data-box="true" class="w-12 h-12 border-2 border-gray-900"></div>
+            <div data-box="true" class="w-12 h-12 border-2 border-gray-900"></div>
+        </div>
+
+        <script>
+            const stack = [];
+            const TOTAL_BOX = 7;
+            const container = document.getElementById('container');
+
+            container.addEventListener('click', (e) => {
+                if (e.target.getAttribute('data-box') === 'true') {
+                    const isClicked = e.target.classList.contains('bg-green-600');
+
+                    if (isClicked) {
+                        return;
+                    }
+
+                    e.target.classList.add('bg-green-600');
+                    stack.push(e.target);
+                }
+
+                if (stack.length === TOTAL_BOX) {
+                    reset();
+                }
+            });
+
+            function reset() {
+                const interval = setInterval(() => {
+                    const lastEl = stack.pop();
+                    lastEl.classList.remove('bg-green-600');
+
+                    if (stack.length === 0) {
+                        clearInterval(interval);
+                    }
+                }, 500);
+            }
+        </script>
+    </body>
+</html>
